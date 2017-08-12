@@ -1,0 +1,11 @@
+{
+  "sound.mcdisc.2": {
+    "category": "hostile",
+    "sounds" : [
+      {"name": "mcdisc:sound.mcdisc.2", "stream": true}
+    ]
+  }
+
+
+
+}
