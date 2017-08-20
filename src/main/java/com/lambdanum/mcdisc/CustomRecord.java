@@ -1,11 +1,11 @@
 package com.lambdanum.mcdisc;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class CustomRecord extends ItemRecord {
 
@@ -13,8 +13,14 @@ public class CustomRecord extends ItemRecord {
         super(disc.getMinecraftId(),new SoundEvent(new ResourceLocation("mcdisc",disc.getSoundId())));
         this.setRegistryName(disc.getMinecraftId());
         this.setUnlocalizedName("record");
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getDiscModelLocation(disc),"inventory"));
+        if (FMLCommonHandler.instance().getSide().isClient()) {
+            registerModel(disc);
+        }
 
+    }
+
+    private void registerModel(Disc disc) {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getDiscModelLocation(disc), "inventory"));
     }
 
     private String getDiscModelLocation(Disc disc) {
