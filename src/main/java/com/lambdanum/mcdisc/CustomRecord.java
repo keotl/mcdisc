@@ -10,8 +10,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 public class CustomRecord extends ItemRecord {
 
     public CustomRecord(Disc disc) {
-        super(disc.getMinecraftId(),new SoundEvent(new ResourceLocation("mcdisc",disc.getSoundId())));
-        this.setRegistryName(disc.getMinecraftId());
+        super(disc.minecraftId,new SoundEvent(new ResourceLocation("mcdisc",disc.soundId)));
+        this.setRegistryName(disc.minecraftId);
         this.setUnlocalizedName("record");
         if (FMLCommonHandler.instance().getSide().isClient()) {
             registerModel(disc);
@@ -24,7 +24,7 @@ public class CustomRecord extends ItemRecord {
     }
 
     private String getDiscModelLocation(Disc disc) {
-        switch (disc.getId() % 12) {
+        switch (disc.id % 12) {
             case 1:
                 return "minecraft:record_blocks";
             case 2:
