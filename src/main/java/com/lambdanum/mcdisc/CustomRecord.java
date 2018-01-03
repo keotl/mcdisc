@@ -1,5 +1,7 @@
 package com.lambdanum.mcdisc;
 
+import com.lambdanum.mcdisc.model.Disc;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.util.ResourceLocation;

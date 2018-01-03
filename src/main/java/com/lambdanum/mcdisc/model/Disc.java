@@ -1,4 +1,4 @@
-package com.lambdanum.mcdisc;
+package com.lambdanum.mcdisc.model;
 
 public class Disc {
 

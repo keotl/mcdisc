@@ -1,6 +1,9 @@
 package com.lambdanum.mcdisc;
 
-import com.google.gson.Gson;
+import com.lambdanum.mcdisc.model.Disc;
+import com.lambdanum.mcdisc.repository.DiscRepositoryFactory;
+
+import java.util.List;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -10,21 +13,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = "mcdisc", version = "@VERSION@")
+@Mod(modid = McDiscMod.MODID, version = "@VERSION@")
 @Mod.EventBusSubscriber
 public class McDiscMod {
 
-    private static final String RELEASE_URL = "https://boiling-forest-57763.herokuapp.com/release";
-    private static Gson mapper = new Gson();
-    private static Disc[] discs;
+    public static final String MODID = "mcdisc";
+
+    private static DiscRepositoryFactory repositoryFactory = new DiscRepositoryFactory();
+    private static List<Disc> discs;
 
     public McDiscMod() {
-        try {
-            String jsonResponse = HttpUtil.get(RELEASE_URL);
-            discs = mapper.fromJson(jsonResponse,Disc[].class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        discs = repositoryFactory.getDiscRepository().getDiscs();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -37,7 +36,7 @@ public class McDiscMod {
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         for (Disc disc : discs) {
-            SoundEvent soundEvent = new SoundEvent(new ResourceLocation("mcdisc",disc.soundId));
+            SoundEvent soundEvent = new SoundEvent(new ResourceLocation("mcdisc", disc.soundId));
             soundEvent.setRegistryName(disc.soundId);
             event.getRegistry().register(soundEvent);
         }
