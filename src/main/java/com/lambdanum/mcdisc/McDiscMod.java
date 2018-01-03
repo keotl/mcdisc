@@ -23,7 +23,7 @@ public class McDiscMod {
     private static List<Disc> discs;
 
     public McDiscMod() {
-        discs = repositoryFactory.getDiscRepository().getDiscs();
+        discs = repositoryFactory.getDiscRepository(McdiscConfig.DISC_LIST_LOCATION).getDiscs();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
