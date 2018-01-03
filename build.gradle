@@ -11,9 +11,19 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+/*
+ * Gets the version name from the latest Git tag
+ */
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
 
-
-version = "0.0.1"
+version = "${mc_version}-" + getVersionName()
 group = "com.lambdanum.mcdisc" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "mcdisc"
 
@@ -30,6 +40,7 @@ minecraft {
     version = "1.12.1-14.22.0.2446"
     runDir = "run"
 
+    replace "@VERSION@", project.version
 
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
@@ -42,19 +53,9 @@ minecraft {
 }
 
 
+
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-    //compile "com.mashape.unirest:unirest-java:1.4.9"
-    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0'
-    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-
+    testCompile 'junit:junit:4.12'
 }
 
 

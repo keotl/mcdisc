@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mcdisc",
+  "name": "Minecraft Discs",
+  "description": "Dynamically loaded custom music discs.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [ "keotl" ],
+  "credits": "keotl",
+  "logoFile": "/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
