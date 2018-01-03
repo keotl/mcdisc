@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = McDiscMod.MODID)
 public class McdiscConfig {
 
-    public static String DISC_LIST_LOCATION = "disc-list.json";
+    public static String DISC_LIST_LOCATION = "https://github.com/KEOTL/mcdisc/raw/master/sample-disc-config.json";
 
     @Mod.EventBusSubscriber
     private static class EventHandler {
