@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/KEOTL/mcdisc.svg?branch=master)](https://travis-ci.org/KEOTL/mcdisc)
+[![Build Status](https://travis-ci.org/keotl/mcdisc.svg?branch=master)](https://travis-ci.org/keotl/mcdisc)
 # Minecraft Discs
-Dynamically loaded custom music discs based on YouTube videos. Requires building your resource pack by downloading YouTube videos. See [here](https://github.com/KEOTL/mcdisc-resource-builder) for an automated mcdisc resource pack builder.
+Dynamically loaded custom music discs based on YouTube videos. Requires building your resource pack by downloading YouTube videos. See [here](https://github.com/keotl/mcdisc-resource-builder) for an automated mcdisc resource pack builder.
 
 For Minecraft 1.12. Requires Forge ModLoader.
 ## Setup
@@ -12,7 +12,7 @@ For Minecraft 1.12. Requires Forge ModLoader.
     - For local files, the default directory is your `.minecraft` directory. For instance, setting `disc-list.json` as your disc location will cause the mod to load discs from `.minecraft/disc-list.json`.
     - Do not use `~` in the file location on Linux or MacOS, as that seems to cause issues.
     - By default, the disc list is set to this repository's [sample-disc-config.json](sample-disc-config.json).
-4. Build your resource pack. (See [here](https://github.com/KEOTL/mcdisc-resource-builder)).
+4. Build your resource pack. (See [here](https://github.com/keotl/mcdisc-resource-builder)).
 You will not be able to play your custom discs without the resource pack.
 
 For multiplayer setups, repeat all steps 1-4 for the server and all clients.
