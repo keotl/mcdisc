@@ -29,14 +29,13 @@ public class McDiscMod {
     public static final String MODID = "mcdisc";
 
     private static List<Disc> discs;
-    private static List<ResourceLocation> allowedLootLocations;
+    private static LootLocationRepository lootLocationRepository = new LootLocationRepository();
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         DiscRepositoryFactory discRepositoryFactory = new DiscRepositoryFactory();
         DiscRepository discRepository = discRepositoryFactory.getDiscRepository(McdiscConfig.DISC_LIST_LOCATION);
         discs = discRepository.getDiscs();
-        allowedLootLocations = new LootLocationRepository().getAllowedLootLocations();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -58,7 +57,7 @@ public class McDiscMod {
 
     @SubscribeEvent
     public static void registerLoot(LootTableLoadEvent event) {
-        if (allowedLootLocations.contains(event.getName())) {
+        if (lootLocationRepository.getAllowedLootLocations().contains(event.getName())) {
             event.getTable().addPool(createDiscPool());
         }
     }
