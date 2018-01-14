@@ -11,6 +11,8 @@ public class McdiscConfig {
 
     public static String DISC_LIST_LOCATION = "https://github.com/KEOTL/mcdisc/raw/master/sample-disc-config.json";
 
+    public static boolean SPAWN_DISCS_IN_CHESTS = true;
+
     @Mod.EventBusSubscriber
     private static class EventHandler {
         @SubscribeEvent
