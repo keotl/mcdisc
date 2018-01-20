@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -37,5 +38,12 @@ public class FileDiscRepository implements DiscRepository {
             logger.error("Could not read disc list from file " + discListLocation);
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public Disc getRandomCustomDisc() {
+        List<Disc> discs = getDiscs();
+        int index = ThreadLocalRandom.current().nextInt(discs.size());
+        return discs.get(index);
     }
 }

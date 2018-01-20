@@ -7,4 +7,6 @@ import java.util.List;
 public interface DiscRepository {
 
     List<Disc> getDiscs();
+
+    Disc getRandomCustomDisc();
 }
