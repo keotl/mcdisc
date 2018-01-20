@@ -24,7 +24,9 @@ public class CustomDiscCreeper extends EntityCreeper {
     @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
-
+        if (!world.isRemote) {
+            this.dropItem(getRandomMusicDiscItem(), 1);
+        }
         if (this.world.getGameRules().getBoolean("doMobLoot")) {
             if (cause.getTrueSource() instanceof EntitySkeleton) {
                 this.dropItem(getRandomMusicDiscItem(), 1);

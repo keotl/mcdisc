@@ -16,6 +16,7 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.RandomChance;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -76,8 +77,9 @@ public class McDiscMod {
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
         if (McdiscConfig.CREEPERS_DROP_CUSTOM_DISCS) {
+            MinecraftForge.EVENT_BUS.register(new CreeperSpawnEventHandler());
             EntityEntry creeperEntry = new EntityEntry(CustomDiscCreeper.class, "creeper");
-            creeperEntry.setRegistryName("minecraft:creeper");
+            creeperEntry.setRegistryName("mcdisc:creeper");
             event.getRegistry().register(creeperEntry);
         }
     }
