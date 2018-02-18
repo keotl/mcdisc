@@ -16,3 +16,9 @@ For Minecraft 1.12. Requires Forge ModLoader.
 You will not be able to play your custom discs without the resource pack.
 
 For multiplayer setups, repeat all steps 1-4 for the server and all clients.
+
+## Configuration
+- `DISC_LIST_LOCATION`: Disc list json file location. Can an URL or a file.
+- `SPAWN_DISCS_IN_CHESTS`: Add custom discs in dungeons, temples, mineshafts.
+- `CREEPERS_DROP_CUSTOM_DISCS`: Creepers should drop custom discs when slain by skeletons.
+- `SHOULD_CACHE_DISC_LIST`: Load the disc list once in memory, to reduce disc/http access. (Better to leave this on!)
