@@ -1,0 +1,11 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/minecraft-discs",
+  "1.12": {
+    "1.1": "- Added disc list caching to reduce stuttering.
+- Added Dungeon drops and crepper drops. (See the mod settings!)", 
+  },
+  "promos": {
+    "1.12-latest": "1.1",
+    "1.12-recommended": "1.1",
+  }
+}
