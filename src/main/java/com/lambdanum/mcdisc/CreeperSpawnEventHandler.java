@@ -11,7 +11,7 @@ public class CreeperSpawnEventHandler {
 
     @SubscribeEvent
     public void onEntitySpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getWorld().isRemote) {
+        if (event.getWorld().isRemote || !McdiscConfig.CREEPERS_DROP_CUSTOM_DISCS) {
             return;
         }
         if (event.getEntityLiving() instanceof EntityCreeper && !(event.getEntityLiving() instanceof CustomDiscCreeper)) {

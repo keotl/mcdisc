@@ -3,10 +3,15 @@ package com.lambdanum.mcdisc;
 import com.lambdanum.mcdisc.model.Disc;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-public interface DiscRepository {
+public abstract class DiscRepository {
 
-    List<Disc> getDiscs();
+    public abstract List<Disc> getDiscs();
 
-    Disc getRandomCustomDisc();
+    public Disc getRandomCustomDisc() {
+        List<Disc> discs = getDiscs();
+        int index = ThreadLocalRandom.current().nextInt(discs.size());
+        return discs.get(index);
+    }
 }

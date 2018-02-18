@@ -70,17 +70,15 @@ public class McDiscMod {
 
         LootEntry[] lootEntries = lootEntryFactory.createCustomDiscLootEntries();
         return new LootPool(lootEntries,
-            new LootCondition[]{new RandomChance(1f)},
+            new LootCondition[] {new RandomChance(1f)},
             new RandomValueRange(1f), new RandomValueRange(0f), "custom discs");
     }
 
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
-        if (McdiscConfig.CREEPERS_DROP_CUSTOM_DISCS) {
-            MinecraftForge.EVENT_BUS.register(new CreeperSpawnEventHandler());
-            EntityEntry creeperEntry = new EntityEntry(CustomDiscCreeper.class, "creeper");
-            creeperEntry.setRegistryName("mcdisc:creeper");
-            event.getRegistry().register(creeperEntry);
-        }
+        MinecraftForge.EVENT_BUS.register(new CreeperSpawnEventHandler());
+        EntityEntry creeperEntry = new EntityEntry(CustomDiscCreeper.class, "creeper");
+        creeperEntry.setRegistryName("mcdisc:creeper");
+        event.getRegistry().register(creeperEntry);
     }
 }

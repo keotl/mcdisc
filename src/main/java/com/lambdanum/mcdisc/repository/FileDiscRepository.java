@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class FileDiscRepository implements DiscRepository {
+public class FileDiscRepository extends DiscRepository {
 
     private Logger logger = LogManager.getLogger(McDiscMod.MODID);
 
@@ -38,12 +38,5 @@ public class FileDiscRepository implements DiscRepository {
             logger.error("Could not read disc list from file " + discListLocation);
             return Collections.emptyList();
         }
-    }
-
-    @Override
-    public Disc getRandomCustomDisc() {
-        List<Disc> discs = getDiscs();
-        int index = ThreadLocalRandom.current().nextInt(discs.size());
-        return discs.get(index);
     }
 }

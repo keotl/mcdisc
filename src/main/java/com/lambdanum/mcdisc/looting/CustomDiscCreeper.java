@@ -21,11 +21,12 @@ public class CustomDiscCreeper extends EntityCreeper {
         super(worldIn);
         discRepository = new DiscRepositoryFactory().getDiscRepository(McdiscConfig.DISC_LIST_LOCATION);
     }
+
     @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
-        if (!world.isRemote) {
-            this.dropItem(getRandomMusicDiscItem(), 1);
+        if (world.isRemote) {
+            return;
         }
         if (this.world.getGameRules().getBoolean("doMobLoot")) {
             if (cause.getTrueSource() instanceof EntitySkeleton) {

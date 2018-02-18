@@ -15,6 +15,8 @@ public class McdiscConfig {
 
     public static boolean CREEPERS_DROP_CUSTOM_DISCS = true;
 
+    public static boolean SHOULD_CACHE_DISC_LIST = true;
+
     @Mod.EventBusSubscriber
     private static class EventHandler {
         @SubscribeEvent
