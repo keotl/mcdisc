@@ -5,7 +5,7 @@ Dynamically loaded custom music discs based on YouTube videos. Requires building
 For Minecraft 1.12. Requires Forge ModLoader.
 ## Setup
 1. Copy the latest mcdisc release jar to your mods directory.
-2. Define your own disc list. See [sample-disc-config.json](sample-disc-config.json) for an example syntax.
+2. Define your own disc list. See [sample-disc-config.json](sample-disc-config.json) for a syntax example.
     - Each custom disc requires a YouTube URL. (Those are used to build your resource pack.)
 3. Edit your forge configuration to use your custom disc list, either by editing manually the `config/mcdisc.cfg` file or from the `Mods Options` menu inside the game.
     - The disc list location can either be an URL, (starting with `http://` or `https://`), or a file path. 
