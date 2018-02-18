@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 
-@Mod(modid = McDiscMod.MODID, version = "@VERSION@")
+@Mod(modid = McDiscMod.MODID, version = "@VERSION@", updateJSON = "https://raw.githubusercontent.com/keotl/mcdisc/master/update.json")
 @Mod.EventBusSubscriber
 public class McDiscMod {
 
