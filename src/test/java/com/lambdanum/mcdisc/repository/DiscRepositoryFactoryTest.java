@@ -3,12 +3,19 @@ package com.lambdanum.mcdisc.repository;
 import static junit.framework.TestCase.assertTrue;
 
 import com.lambdanum.mcdisc.DiscRepository;
+import com.lambdanum.mcdisc.McdiscConfig;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class DiscRepositoryFactoryTest {
 
     private DiscRepositoryFactory discRepositoryFactory = new DiscRepositoryFactory();
+
+    @BeforeClass
+    public static void setNoCacheGlobalSetting() {
+        McdiscConfig.SHOULD_CACHE_DISC_LIST = false;
+    }
 
     @Test
     public void givenAnHttpUrl_whenGettingDiscRepository_thenRestDiscRepositoryIsCreated() {
