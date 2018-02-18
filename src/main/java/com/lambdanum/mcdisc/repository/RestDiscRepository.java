@@ -9,11 +9,12 @@ import com.lambdanum.mcdisc.model.Disc;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class RestDiscRepository implements DiscRepository {
+public class RestDiscRepository extends DiscRepository {
 
     private Logger logger = LogManager.getLogger(McDiscMod.MODID);
 

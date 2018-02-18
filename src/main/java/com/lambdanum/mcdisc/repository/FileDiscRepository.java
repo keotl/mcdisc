@@ -11,12 +11,13 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class FileDiscRepository implements DiscRepository {
+public class FileDiscRepository extends DiscRepository {
 
     private Logger logger = LogManager.getLogger(McDiscMod.MODID);
 

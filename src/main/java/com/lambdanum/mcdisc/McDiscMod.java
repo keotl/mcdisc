@@ -1,5 +1,6 @@
 package com.lambdanum.mcdisc;
 
+import com.lambdanum.mcdisc.looting.CustomDiscCreeper;
 import com.lambdanum.mcdisc.looting.LootEntryFactory;
 import com.lambdanum.mcdisc.looting.LootLocationRepository;
 import com.lambdanum.mcdisc.model.Disc;
@@ -15,12 +16,14 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.RandomChance;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
 
 @Mod(modid = McDiscMod.MODID, version = "@VERSION@")
 @Mod.EventBusSubscriber
@@ -67,7 +70,15 @@ public class McDiscMod {
 
         LootEntry[] lootEntries = lootEntryFactory.createCustomDiscLootEntries();
         return new LootPool(lootEntries,
-            new LootCondition[]{new RandomChance(1f)},
+            new LootCondition[] {new RandomChance(1f)},
             new RandomValueRange(1f), new RandomValueRange(0f), "custom discs");
+    }
+
+    @SubscribeEvent
+    public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+        MinecraftForge.EVENT_BUS.register(new CreeperSpawnEventHandler());
+        EntityEntry creeperEntry = new EntityEntry(CustomDiscCreeper.class, "creeper");
+        creeperEntry.setRegistryName("mcdisc:creeper");
+        event.getRegistry().register(creeperEntry);
     }
 }
