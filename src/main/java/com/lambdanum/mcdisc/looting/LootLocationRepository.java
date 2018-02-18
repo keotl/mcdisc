@@ -2,12 +2,12 @@ package com.lambdanum.mcdisc.looting;
 
 import com.lambdanum.mcdisc.McdiscConfig;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
-import scala.actors.threadpool.Arrays;
 
 public class LootLocationRepository {
 
