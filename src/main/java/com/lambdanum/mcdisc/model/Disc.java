@@ -5,4 +5,6 @@ public class Disc {
     public int id;
     public String minecraftId;
     public String soundId;
+    public String texture;
+
 }
