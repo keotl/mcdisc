@@ -1,6 +1,7 @@
 package com.lambdanum.mcdisc.repository;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.lambdanum.mcdisc.DiscRepository;
 import com.lambdanum.mcdisc.McDiscMod;
 import com.lambdanum.mcdisc.infrastructure.util.HttpUtil;
@@ -19,7 +20,7 @@ public class RestDiscRepository extends DiscRepository {
     private Logger logger = LogManager.getLogger(McDiscMod.MODID);
 
     private String serverUrl;
-    private HttpUtil httpUtil = new HttpUtil(new Gson());
+    private HttpUtil httpUtil = new HttpUtil(new GsonBuilder().serializeNulls().create());
 
     public RestDiscRepository(String serverUrl) {
         this.serverUrl = serverUrl;

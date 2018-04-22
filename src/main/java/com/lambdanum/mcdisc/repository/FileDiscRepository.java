@@ -1,6 +1,7 @@
 package com.lambdanum.mcdisc.repository;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.lambdanum.mcdisc.DiscRepository;
 import com.lambdanum.mcdisc.McDiscMod;
 import com.lambdanum.mcdisc.model.Disc;
@@ -22,7 +23,7 @@ public class FileDiscRepository extends DiscRepository {
     private Logger logger = LogManager.getLogger(McDiscMod.MODID);
 
     private String discListLocation;
-    private Gson mapper = new Gson();
+    private Gson mapper = new GsonBuilder().serializeNulls().create();
 
     public FileDiscRepository(String discListLocation) {
         this.discListLocation = discListLocation;
