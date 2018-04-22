@@ -27,7 +27,7 @@ For multiplayer setups, repeat all steps 1-4 for the server and all clients.
 By default, custom discs reuse vanilla minecraft textures. You can define custom textures by adding a "texture" property to your discs in your disc-list.json. (See [here](/documentation/example-custom-texture.json)) for an example. You then need to define your new textures in a resource pack, either as a standalone resource pack, or by bundling them with your sound resource pack built at step 4.
 
 The pack should have the following structure : ( [Example Here](/documentation/example-mcdisc-textures.zip))
-`
+```
 /assets
   /mcdisc
     /models
@@ -37,7 +37,7 @@ The pack should have the following structure : ( [Example Here](/documentation/
     /textures
       /items
         my_texture.png
-`
+```
 `my-texture.json` should contain the following :
 ```json
 {
