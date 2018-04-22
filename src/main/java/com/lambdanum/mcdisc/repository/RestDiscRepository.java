@@ -1,6 +1,5 @@
 package com.lambdanum.mcdisc.repository;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lambdanum.mcdisc.DiscRepository;
 import com.lambdanum.mcdisc.McDiscMod;
@@ -10,7 +9,6 @@ import com.lambdanum.mcdisc.model.Disc;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

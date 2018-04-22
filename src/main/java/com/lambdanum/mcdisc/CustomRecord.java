@@ -8,8 +8,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CustomRecord extends ItemRecord {
+    private static final Logger LOGGER = LogManager.getLogger(CustomRecord.class);
 
     public CustomRecord(Disc disc) {
         super(disc.minecraftId, new SoundEvent(new ResourceLocation("mcdisc", disc.soundId)));
@@ -27,6 +30,9 @@ public class CustomRecord extends ItemRecord {
 
     private String getDiscModelLocation(Disc disc) {
         if (disc.texture != null && !"".equals(disc.texture)) {
+            if (!disc.texture.startsWith("minecraft:")) {
+                LOGGER.error("Custom Disc " + disc.minecraftId + " is missing 'minecraft:' in its custom texture path. It will probably not work!");
+            }
             return disc.texture;
         } else {
             switch (disc.id % 12) {
