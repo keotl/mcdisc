@@ -22,3 +22,28 @@ For multiplayer setups, repeat all steps 1-4 for the server and all clients.
 - `SPAWN_DISCS_IN_CHESTS`: Add custom discs in dungeons, temples, mineshafts.
 - `CREEPERS_DROP_CUSTOM_DISCS`: Creepers should drop custom discs when slain by skeletons.
 - `SHOULD_CACHE_DISC_LIST`: Load the disc list once in memory, to reduce disc/http access. (Better to leave this on!)
+
+## Using custom textures
+By default, custom discs reuse vanilla minecraft textures. You can define custom textures by adding a "texture" property to your discs in your disc-list.json. (See [here](/documentation/example-custom-texture.json)) for an example. You then need to define your new textures in a resource pack, either as a standalone resource pack, or by bundling them with your sound resource pack built at step 4.
+
+The pack should have the following structure : ( [Example Here](/documentation/example-mcdisc-textures.zip))
+`
+/assets
+  /mcdisc
+    /models
+      /item
+        my-texture.json
+  /minecraft
+    /textures
+      /items
+        my_texture.png
+`
+`my-texture.json` should contain the following :
+```json
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:items/my_texture"
+  }
+}
+```
