@@ -1,5 +1,6 @@
 package com.lambdanum.mcdisc;
 
+import com.lambdanum.mcdisc.item.CustomRecord;
 import com.lambdanum.mcdisc.looting.CustomDiscCreeper;
 import com.lambdanum.mcdisc.looting.LootEntryFactory;
 import com.lambdanum.mcdisc.looting.LootLocationRepository;
