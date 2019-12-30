@@ -1,6 +1,7 @@
 package com.lambdanum.mcdisc;
 
 import com.lambdanum.mcdisc.item.CustomRecord;
+import com.lambdanum.mcdisc.item.PortableJukeboxItem;
 import com.lambdanum.mcdisc.looting.CustomDiscCreeper;
 import com.lambdanum.mcdisc.looting.LootEntryFactory;
 import com.lambdanum.mcdisc.looting.LootLocationRepository;
@@ -9,6 +10,7 @@ import com.lambdanum.mcdisc.repository.DiscRepositoryFactory;
 
 import java.util.List;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -24,22 +26,34 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 
 @Mod(modid = McDiscMod.MODID, version = "@VERSION@", updateJSON = "https://raw.githubusercontent.com/keotl/mcdisc/master/update.json")
 @Mod.EventBusSubscriber
 public class McDiscMod {
 
+    public static McDiscMod INSTANCE;
+
     public static final String MODID = "mcdisc";
 
     private static List<Disc> discs;
+
+    // TODO move to modItems class - klauzon 2019-12-30
+    private static Item PORTABLE_JUKEBOX = new PortableJukeboxItem().setCreativeTab(CreativeTabs.MISC);
+
     private static LootLocationRepository lootLocationRepository = new LootLocationRepository();
 
+    public McDiscMod() {
+        INSTANCE = this;
+    }
+
     @Mod.EventHandler
-    public static void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         DiscRepositoryFactory discRepositoryFactory = new DiscRepositoryFactory();
         DiscRepository discRepository = discRepositoryFactory.getDiscRepository(McdiscConfig.DISC_LIST_LOCATION);
         discs = discRepository.getDiscs();
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new McDiscGuiHandler());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -48,6 +62,7 @@ public class McDiscMod {
         for (Disc disc : discs) {
             event.getRegistry().register(new CustomRecord(disc));
         }
+        event.getRegistry().register(PORTABLE_JUKEBOX);
     }
 
     @SubscribeEvent

@@ -1,6 +1,5 @@
 package com.lambdanum.mcdisc;
 
-import com.lambdanum.mcdisc.item.PortableJukeboxContainer;
 import com.lambdanum.mcdisc.item.PortableJukeboxGuiContainer;
 import com.lambdanum.mcdisc.item.PortableJukeboxItem;
 import javax.annotation.Nullable;
@@ -18,7 +17,10 @@ public class McDiscGuiHandler implements IGuiHandler {
   public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
     switch (ID) {
       case PORTABLE_JUKEBOX:
-        return new PortableJukeboxContainer();
+        ItemStack currentlyHeld = player.inventory.getCurrentItem();
+        if (currentlyHeld.getItem() instanceof PortableJukeboxItem) {
+          return ((PortableJukeboxItem) currentlyHeld.getItem()).createContainer(player.inventory);
+        }
       default:
         return null;
     }
@@ -31,7 +33,7 @@ public class McDiscGuiHandler implements IGuiHandler {
       case PORTABLE_JUKEBOX:
         ItemStack currentlyHeld = player.inventory.getCurrentItem();
         if (currentlyHeld.getItem() instanceof PortableJukeboxItem) {
-          return new PortableJukeboxGuiContainer(player.inventory,(PortableJukeboxItem) currentlyHeld.getItem());
+          return new PortableJukeboxGuiContainer(((PortableJukeboxItem) currentlyHeld.getItem()).createContainer(player.inventory));
         }
 
       default:
