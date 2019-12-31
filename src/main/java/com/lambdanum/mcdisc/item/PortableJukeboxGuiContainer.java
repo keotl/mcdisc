@@ -26,6 +26,4 @@ public class PortableJukeboxGuiContainer extends GuiContainer {
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     super.drawGuiContainerForegroundLayer(mouseX, mouseY);
   }
-
-
 }

@@ -2,17 +2,13 @@ package com.lambdanum.mcdisc.item;
 
 import com.lambdanum.mcdisc.McDiscGuiHandler;
 import com.lambdanum.mcdisc.McDiscMod;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -20,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import scala.actors.threadpool.Arrays;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class PortableJukeboxItem extends Item {
   public static final String NAME = "portable_jukebox";
@@ -44,6 +40,11 @@ public class PortableJukeboxItem extends Item {
   }
 
   public Container createContainer(InventoryPlayer playerInventory) {
-    return new PortableJukeboxContainer(playerInventory,Arrays.asList(new ItemRecord[] {(ItemRecord) Item.getByNameOrId("minecraft:record_blocks")}));
+    ItemStack currentlyHeld = playerInventory.getCurrentItem();
+    if (currentlyHeld.getItem() instanceof PortableJukeboxItem) {
+
+      return new PortableJukeboxContainer(playerInventory);
+    }
+    throw new NotImplementedException();
   }
 }

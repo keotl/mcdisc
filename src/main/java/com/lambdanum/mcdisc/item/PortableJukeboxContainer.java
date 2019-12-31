@@ -1,21 +1,43 @@
 package com.lambdanum.mcdisc.item;
 
-import java.util.List;
+import com.lambdanum.mcdisc.item.serialization.InventorySerializer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemRecord;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
-// The inventory
 public class PortableJukeboxContainer extends Container {
+
+  private InventorySerializer inventorySerializer = new InventorySerializer();
 
   private InventoryPlayer playerInventory;
   private PortableJukeboxInventory content;
 
-  public PortableJukeboxContainer(InventoryPlayer playerInventory, List<ItemRecord> content) {
+  public PortableJukeboxContainer(InventoryPlayer playerInventory) {
     this.playerInventory = playerInventory;
     this.content = new PortableJukeboxInventory();
+
+    if (!this.playerInventory.getCurrentItem().hasTagCompound()) {
+      this.playerInventory.getCurrentItem().setTagCompound(new NBTTagCompound());
+    }
+
+    NBTTagCompound itemTag = this.playerInventory.getCurrentItem().getTagCompound();
+    if (!itemTag.hasKey("content")) {
+      itemTag.setTag("content", new NBTTagCompound());
+    }
+
+    inventorySerializer.deserializeToInventory(this.content, (NBTTagCompound) itemTag.getTag("content"));
+
+    this.content.addInventoryChangeListener(newContent -> {
+      ItemStack currentItem = this.playerInventory.getCurrentItem();
+      if (!currentItem.hasTagCompound()) {
+        currentItem.setTagCompound(new NBTTagCompound());
+      }
+      NBTTagCompound tagCompound = currentItem.getTagCompound();
+      tagCompound.setTag("content", inventorySerializer.serializeToNbt(newContent));
+    });
     initializeSlots();
   }
 
@@ -27,8 +49,8 @@ public class PortableJukeboxContainer extends Container {
   private void initializeSlots() {
     // jukebox content
     for (int i = 0; i < 4; i++) {
-      for (int j=0; j < 2; j++) {
-        addSlotToContainer(new Slot(content, j*4+i, 8+j*18, 6+i*18));
+      for (int j = 0; j < 2; j++) {
+        addSlotToContainer(new Slot(content, j * 4 + i, 8 + j * 18, 6 + i * 18));
       }
     }
 
