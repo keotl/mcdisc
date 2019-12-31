@@ -8,7 +8,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -16,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class PortableJukeboxItem extends Item {
   public static final String NAME = "portable_jukebox";
@@ -39,12 +37,12 @@ public class PortableJukeboxItem extends Item {
     return super.onItemRightClick(worldIn, playerIn, handIn);
   }
 
-  public Container createContainer(InventoryPlayer playerInventory) {
+  public PortableJukeboxContainer createContainer(InventoryPlayer playerInventory) {
     ItemStack currentlyHeld = playerInventory.getCurrentItem();
     if (currentlyHeld.getItem() instanceof PortableJukeboxItem) {
 
       return new PortableJukeboxContainer(playerInventory);
     }
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException("not implemented");
   }
 }

@@ -33,7 +33,7 @@ public class McDiscGuiHandler implements IGuiHandler {
       case PORTABLE_JUKEBOX:
         ItemStack currentlyHeld = player.inventory.getCurrentItem();
         if (currentlyHeld.getItem() instanceof PortableJukeboxItem) {
-          return new PortableJukeboxGuiContainer(((PortableJukeboxItem) currentlyHeld.getItem()).createContainer(player.inventory));
+          return new PortableJukeboxGuiContainer(player,((PortableJukeboxItem) currentlyHeld.getItem()).createContainer(player.inventory));
         }
 
       default:

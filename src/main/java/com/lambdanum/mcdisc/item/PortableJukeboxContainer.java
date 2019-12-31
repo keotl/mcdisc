@@ -1,12 +1,17 @@
 package com.lambdanum.mcdisc.item;
 
 import com.lambdanum.mcdisc.item.serialization.InventorySerializer;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundEvent;
 
 public class PortableJukeboxContainer extends Container {
 
@@ -39,6 +44,15 @@ public class PortableJukeboxContainer extends Container {
       tagCompound.setTag("content", inventorySerializer.serializeToNbt(newContent));
     });
     initializeSlots();
+  }
+
+  public List<SoundEvent> getPlaylist() {
+    return IntStream.range(0,8)
+        .mapToObj(content::getStackInSlot)
+        .map(ItemStack::getItem)
+        .filter(item -> item instanceof ItemRecord)
+        .map(item -> ((ItemRecord)item).getSound())
+        .collect(Collectors.toList());
   }
 
   @Override
