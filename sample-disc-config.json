@@ -5,7 +5,8 @@
         "url": "https://www.youtube.com/watch?v=AEB6ibtdPZc",
         "name": "Hard Times",
         "artist": "Paramore",
-        "soundId": "sound.mcdisc.1"
+        "soundId": "sound.mcdisc.1",
+        "duration": 199
     },
     {
         "id": 2,
@@ -13,7 +14,8 @@
         "url": "https://www.youtube.com/watch?v=ObmXBy2IyaM",
         "name": "James Bond",
         "artist": "Scouting For Girls",
-        "soundId": "sound.mcdisc.2"
+        "soundId": "sound.mcdisc.2",
+        "duration": 195
     },
     {
         "id": 3,
@@ -21,7 +23,8 @@
         "url": "https://www.youtube.com/watch?v=o0u4M6vppCI",
         "name": "Shia LaBeouf",
         "artist": "Rob Cantor",
-        "soundId": "sound.mcdisc.3"
+        "soundId": "sound.mcdisc.3",
+        "duration": 208
     },
     {
         "id": 4,
@@ -29,6 +32,7 @@
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         "name": "Never Gonna Give You Up",
         "artist": "Rick Astley",
-        "soundId": "sound.mcdisc.4"
+        "soundId": "sound.mcdisc.4",
+        "duration": 212
     }
 ]
