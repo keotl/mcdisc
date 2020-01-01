@@ -1,6 +1,10 @@
 package com.lambdanum.mcdisc.playback.network;
 
 import com.lambdanum.mcdisc.playback.MovingMusicPlayer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,15 +18,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PortableJukeboxPlayPacketHandler implements IMessageHandler<PortableJukeboxPlayPacket, IMessage> {
+
+  private Map<String, MovingMusicPlayer> playingSounds = new HashMap<>();
+
   @Override
   public IMessage onMessage(PortableJukeboxPlayPacket message, MessageContext ctx) {
     WorldClient world = Minecraft.getMinecraft().world;
     EntityPlayer sourcePlayer = world.getPlayerEntityByName(message.sourcePlayer);
 
     ResourceLocation soundLocation = new ResourceLocation(message.soundId);
+
+    MovingMusicPlayer sound = new MovingMusicPlayer(sourcePlayer, new SoundEvent(soundLocation));
+
+    if (playingSounds.containsKey(message.sourcePlayer)) {
+      playingSounds.get(message.sourcePlayer).stop();
+    }
+
     Minecraft.getMinecraft()
         .getSoundHandler()
-        .playSound(new MovingMusicPlayer(sourcePlayer, new SoundEvent(soundLocation)));
+        .playSound(sound);
+
+    playingSounds.put(message.sourcePlayer, sound);
 
     return null;
   }

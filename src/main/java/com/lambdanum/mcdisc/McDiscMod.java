@@ -8,6 +8,8 @@ import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacket;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacketHandler;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessage;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessageHandler;
+import com.lambdanum.mcdisc.playback.playlist.PlaylistManager;
+import com.lambdanum.mcdisc.playback.playlist.SoundDurationService;
 import com.lambdanum.mcdisc.repository.DiscRepositoryFactory;
 
 import java.util.List;
@@ -25,7 +27,10 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -40,6 +45,7 @@ public class McDiscMod {
   public static McDiscMod INSTANCE;
 
   public static final String MODID = "mcdisc";
+  public static SoundDurationService SOUND_DURATION_SERVICE;
 
   private static List<Disc> discs;
   private static McDiscItems MOD_ITEMS;
@@ -58,6 +64,7 @@ public class McDiscMod {
     discs = discRepository.getDiscs();
     MOD_ITEMS = new McDiscItems(discs);
 
+    SOUND_DURATION_SERVICE = new SoundDurationService(discs);
     NetworkRegistry.INSTANCE.registerGuiHandler(this, new McDiscGuiHandler());
 
 
@@ -68,6 +75,16 @@ public class McDiscMod {
 
     // Handler to maintain the active playlists on the server
     NETWORK_WRAPPER.registerMessage(PortableJukeboxStartPlaylistMessageHandler.class, PortableJukeboxStartPlaylistMessage.class, 1, Side.SERVER);
+  }
+
+  @Mod.EventHandler
+  public void afterStart(FMLServerStartedEvent event) {
+    PlaylistManager.INSTANCE.startWorker();
+  }
+
+  @Mod.EventHandler
+  public void beforeShutdown(FMLServerStoppingEvent event) {
+    PlaylistManager.INSTANCE.stopWorker();
   }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
