@@ -33,7 +33,7 @@ public class McDiscItems {
   public void registerModels() {
     if (FMLCommonHandler.instance().getSide().isClient()) {
       customRecords.forEach(CustomRecord::registerModel);
-      ModelLoader.setCustomModelResourceLocation(portableJukebox, 0, new ModelResourceLocation("minecraft:record_stal", "inventory"));
+      ModelLoader.setCustomModelResourceLocation(portableJukebox, 0, new ModelResourceLocation("mcdisc:portable_jukebox", "inventory"));
     }
   }
 }

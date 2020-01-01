@@ -2,6 +2,7 @@ package com.lambdanum.mcdisc.item;
 
 import com.lambdanum.mcdisc.McDiscGuiHandler;
 import com.lambdanum.mcdisc.McDiscMod;
+import com.lambdanum.mcdisc.McdiscConfig;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
