@@ -6,9 +6,10 @@ import com.lambdanum.mcdisc.looting.CustomDiscCreeper;
 import com.lambdanum.mcdisc.looting.LootEntryFactory;
 import com.lambdanum.mcdisc.looting.LootLocationRepository;
 import com.lambdanum.mcdisc.model.Disc;
-import com.lambdanum.mcdisc.playback.PortableJukeboxPlayPacket;
-import com.lambdanum.mcdisc.playback.PortableJukeboxPlayPacketHandler;
-import com.lambdanum.mcdisc.playback.PortableJukeboxPlayPacketServerHandler;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacket;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacketHandler;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessage;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessageHandler;
 import com.lambdanum.mcdisc.repository.DiscRepositoryFactory;
 
 import java.util.List;
@@ -61,11 +62,14 @@ public class McDiscMod {
     discs = discRepository.getDiscs();
     NetworkRegistry.INSTANCE.registerGuiHandler(this, new McDiscGuiHandler());
 
-    // Handler to play the sound
-    NETWORK_WRAPPER.registerMessage(PortableJukeboxPlayPacketHandler.class, PortableJukeboxPlayPacket.class, 0, Side.CLIENT);
+    if (event.getSide().isClient()) {
+      // Handler to play the sound for clients
+      NETWORK_WRAPPER.registerMessage(PortableJukeboxPlayPacketHandler.class, PortableJukeboxPlayPacket.class, 0, Side.CLIENT);
+    }
 
-    // Handler to broadcast the message to each client
-    NETWORK_WRAPPER.registerMessage(PortableJukeboxPlayPacketServerHandler.class, PortableJukeboxPlayPacket.class, 0, Side.SERVER);
+      // Handler to maintain the active playlists on the server
+      NETWORK_WRAPPER.registerMessage(PortableJukeboxStartPlaylistMessageHandler.class, PortableJukeboxStartPlaylistMessage.class, 1, Side.SERVER);
+
   }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)

@@ -46,12 +46,12 @@ public class PortableJukeboxContainer extends Container {
     initializeSlots();
   }
 
-  public List<SoundEvent> getPlaylist() {
-    return IntStream.range(0,8)
+  public List<String> getPlaylist() {
+    return IntStream.range(0, 8)
         .mapToObj(content::getStackInSlot)
         .map(ItemStack::getItem)
         .filter(item -> item instanceof ItemRecord)
-        .map(item -> ((ItemRecord)item).getSound())
+        .map(item -> ((ItemRecord) item).getSound().getSoundName().toString())
         .collect(Collectors.toList());
   }
 

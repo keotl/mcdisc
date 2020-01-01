@@ -1,9 +1,8 @@
 package com.lambdanum.mcdisc.item;
 
 import com.lambdanum.mcdisc.McDiscMod;
-import com.lambdanum.mcdisc.playback.MovingMusicPlayer;
-import com.lambdanum.mcdisc.playback.PortableJukeboxPlayPacket;
-import net.minecraft.client.Minecraft;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacket;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessage;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -29,14 +28,10 @@ public class PortableJukeboxGuiContainer extends GuiContainer {
       @Override
       public void mouseReleased(int mouseX, int mouseY) {
         if (container.getPlaylist().size() > 0) {
-          McDiscMod.NETWORK_WRAPPER.sendToServer(new PortableJukeboxPlayPacket(
+          McDiscMod.NETWORK_WRAPPER.sendToServer(new PortableJukeboxStartPlaylistMessage(
               player.dimension,
               player.getName(),
-              container
-                  .getPlaylist()
-                  .get(0)
-                  .getSoundName()
-                  .toString()));
+              container.getPlaylist()));
         }
       }
     });
