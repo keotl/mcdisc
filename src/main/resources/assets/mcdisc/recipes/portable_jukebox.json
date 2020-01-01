@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iji",
+    "iii"
+  ],
+  "key": {
+    "j": {
+      "item": "minecraft:jukebox"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "mcdisc:portable_jukebox",
+    "count": 1,
+    "data": 0
+  }
+}
