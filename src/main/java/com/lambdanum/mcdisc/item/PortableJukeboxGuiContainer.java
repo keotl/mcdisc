@@ -49,6 +49,12 @@ public class PortableJukeboxGuiContainer extends GuiContainer {
   }
 
   @Override
+  public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    super.drawScreen(mouseX, mouseY, partialTicks);
+    this.renderHoveredToolTip(mouseX, mouseY);
+  }
+
+  @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     GlStateManager.color(1, 1, 1, 1);
     mc.getTextureManager().bindTexture(BG_TEXTURE);
