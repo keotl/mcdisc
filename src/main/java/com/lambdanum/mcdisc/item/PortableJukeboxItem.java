@@ -3,6 +3,7 @@ package com.lambdanum.mcdisc.item;
 import com.lambdanum.mcdisc.McDiscGuiHandler;
 import com.lambdanum.mcdisc.McDiscMod;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -22,9 +23,7 @@ public class PortableJukeboxItem extends Item {
   public PortableJukeboxItem() {
     setUnlocalizedName(NAME);
     setRegistryName(NAME);
-    if (FMLCommonHandler.instance().getSide().isClient()) {
-      ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(McDiscMod.MODID + ":" + NAME, "inventory"));
-    }
+    setCreativeTab(CreativeTabs.MISC);
   }
 
   @Override

@@ -1,7 +1,5 @@
 package com.lambdanum.mcdisc;
 
-import com.lambdanum.mcdisc.item.CustomRecord;
-import com.lambdanum.mcdisc.item.PortableJukeboxItem;
 import com.lambdanum.mcdisc.looting.CustomDiscCreeper;
 import com.lambdanum.mcdisc.looting.LootEntryFactory;
 import com.lambdanum.mcdisc.looting.LootLocationRepository;
@@ -14,7 +12,6 @@ import com.lambdanum.mcdisc.repository.DiscRepositoryFactory;
 
 import java.util.List;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -26,6 +23,7 @@ import net.minecraft.world.storage.loot.conditions.RandomChance;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -44,10 +42,8 @@ public class McDiscMod {
   public static final String MODID = "mcdisc";
 
   private static List<Disc> discs;
+  private static McDiscItems MOD_ITEMS;
   public static final SimpleNetworkWrapper NETWORK_WRAPPER = new SimpleNetworkWrapper("mcdisc");
-
-  // TODO move to modItems class - klauzon 2019-12-30
-  private static Item PORTABLE_JUKEBOX = new PortableJukeboxItem().setCreativeTab(CreativeTabs.MISC);
 
   private static LootLocationRepository lootLocationRepository = new LootLocationRepository();
 
@@ -60,25 +56,28 @@ public class McDiscMod {
     DiscRepositoryFactory discRepositoryFactory = new DiscRepositoryFactory();
     DiscRepository discRepository = discRepositoryFactory.getDiscRepository(McdiscConfig.DISC_LIST_LOCATION);
     discs = discRepository.getDiscs();
+    MOD_ITEMS = new McDiscItems(discs);
+
     NetworkRegistry.INSTANCE.registerGuiHandler(this, new McDiscGuiHandler());
+
 
     if (event.getSide().isClient()) {
       // Handler to play the sound for clients
       NETWORK_WRAPPER.registerMessage(PortableJukeboxPlayPacketHandler.class, PortableJukeboxPlayPacket.class, 0, Side.CLIENT);
     }
 
-      // Handler to maintain the active playlists on the server
-      NETWORK_WRAPPER.registerMessage(PortableJukeboxStartPlaylistMessageHandler.class, PortableJukeboxStartPlaylistMessage.class, 1, Side.SERVER);
-
+    // Handler to maintain the active playlists on the server
+    NETWORK_WRAPPER.registerMessage(PortableJukeboxStartPlaylistMessageHandler.class, PortableJukeboxStartPlaylistMessage.class, 1, Side.SERVER);
   }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public static void registerItems(RegistryEvent.Register<Item> event) {
     System.out.println("Config value :" + McdiscConfig.DISC_LIST_LOCATION);
-    for (Disc disc : discs) {
-      event.getRegistry().register(new CustomRecord(disc));
+    MOD_ITEMS.registerItems(event);
+
+    if (FMLCommonHandler.instance().getSide().isClient()) {
+      MOD_ITEMS.registerModels();
     }
-    event.getRegistry().register(PORTABLE_JUKEBOX);
   }
 
   @SubscribeEvent

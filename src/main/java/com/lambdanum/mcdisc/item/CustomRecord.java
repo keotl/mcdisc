@@ -1,30 +1,26 @@
 package com.lambdanum.mcdisc.item;
 
 import com.lambdanum.mcdisc.model.Disc;
-
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CustomRecord extends ItemRecord {
     private static final Logger LOGGER = LogManager.getLogger(CustomRecord.class);
+    private Disc disc;
 
     public CustomRecord(Disc disc) {
         super(disc.minecraftId, new SoundEvent(new ResourceLocation("mcdisc", disc.soundId)));
+        this.disc = disc;
         this.setRegistryName(disc.minecraftId);
         this.setUnlocalizedName("record");
-        if (FMLCommonHandler.instance().getSide().isClient()) {
-            registerModel(disc);
-        }
-
     }
 
-    private void registerModel(Disc disc) {
+    public void registerModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getDiscModelLocation(disc), "inventory"));
     }
 
