@@ -31,6 +31,10 @@ public class Playlist {
     return sounds.isEmpty();
   }
 
+  public boolean matchesPlayer(String player) {
+    return followingPlayer.getName().equals(player);
+  }
+
   public void advance(SimpleNetworkWrapper networkWrapper, SoundDurationService soundDurationService) {
     if (sounds.size() == 0) {
       return;

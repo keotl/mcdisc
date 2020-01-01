@@ -3,6 +3,7 @@ package com.lambdanum.mcdisc.item;
 import com.lambdanum.mcdisc.McDiscMod;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacket;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessage;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStopPlaylistMessage;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,8 +24,9 @@ public class PortableJukeboxGuiContainer extends GuiContainer {
   @Override
   public void initGui() {
     super.initGui();
-
-    buttonList.add(new GuiButton(0, 400, 100, 14, 8, "Play") {
+    int x = (width - xSize) / 2;
+    int y = (height - ySize) / 2;
+    buttonList.add(new GuiButton(0, x + 100, y + 40, 20, 12, "Play") {
       @Override
       public void mouseReleased(int mouseX, int mouseY) {
         if (container.getPlaylist().size() > 0) {
@@ -32,6 +34,15 @@ public class PortableJukeboxGuiContainer extends GuiContainer {
               player.dimension,
               player.getName(),
               container.getPlaylist()));
+        }
+      }
+    });
+
+    buttonList.add(new GuiButton(1, x + 100, y + 52, 20, 12, "Stop") {
+      @Override
+      public void mouseReleased(int mouseX, int mouseY) {
+        if (container.getPlaylist().size() > 0) {
+          McDiscMod.NETWORK_WRAPPER.sendToServer(new PortableJukeboxStopPlaylistMessage(player.getName()));
         }
       }
     });

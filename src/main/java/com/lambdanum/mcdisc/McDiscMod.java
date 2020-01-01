@@ -8,6 +8,9 @@ import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacket;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxPlayPacketHandler;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessage;
 import com.lambdanum.mcdisc.playback.network.PortableJukeboxStartPlaylistMessageHandler;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStopPlaylistMessage;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStopPlaylistMessageClientHandler;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStopPlaylistMessageServerHandler;
 import com.lambdanum.mcdisc.playback.playlist.PlaylistManager;
 import com.lambdanum.mcdisc.playback.playlist.SoundDurationService;
 import com.lambdanum.mcdisc.repository.DiscRepositoryFactory;
@@ -71,10 +74,12 @@ public class McDiscMod {
     if (event.getSide().isClient()) {
       // Handler to play the sound for clients
       NETWORK_WRAPPER.registerMessage(PortableJukeboxPlayPacketHandler.class, PortableJukeboxPlayPacket.class, 0, Side.CLIENT);
+      NETWORK_WRAPPER.registerMessage(PortableJukeboxStopPlaylistMessageClientHandler.class, PortableJukeboxStopPlaylistMessage.class, 2, Side.CLIENT);
     }
 
     // Handler to maintain the active playlists on the server
     NETWORK_WRAPPER.registerMessage(PortableJukeboxStartPlaylistMessageHandler.class, PortableJukeboxStartPlaylistMessage.class, 1, Side.SERVER);
+    NETWORK_WRAPPER.registerMessage(PortableJukeboxStopPlaylistMessageServerHandler.class, PortableJukeboxStopPlaylistMessage.class, 2, Side.SERVER);
   }
 
   @Mod.EventHandler

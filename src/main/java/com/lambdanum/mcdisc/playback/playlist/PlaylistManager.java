@@ -1,6 +1,7 @@
 package com.lambdanum.mcdisc.playback.playlist;
 
 import com.lambdanum.mcdisc.McDiscMod;
+import com.lambdanum.mcdisc.playback.network.PortableJukeboxStopPlaylistMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +15,9 @@ public class PlaylistManager {
   private Thread workerThread;
   private boolean shouldStopWorker;
 
-  public PlaylistManager() {
+  private final Object lock = new Object();
+
+  private PlaylistManager() {
     playlists = new ArrayList<>();
     workerThread = new Thread(new PlaylistManagerWorker());
     shouldStopWorker = false;
@@ -23,6 +26,13 @@ public class PlaylistManager {
   public void add(Playlist playlist) {
     playlists.add(playlist);
     playlist.advance(McDiscMod.NETWORK_WRAPPER, McDiscMod.SOUND_DURATION_SERVICE);
+  }
+
+  public void remove(String player) {
+    synchronized (lock) {
+      playlists = playlists.stream().filter(p -> !p.matchesPlayer(player)).collect(Collectors.toList());
+    }
+
   }
 
   public void startWorker() {
@@ -39,11 +49,12 @@ public class PlaylistManager {
     public void run() {
       try {
         while (!shouldStopWorker) {
-          playlists = playlists.stream().filter(p -> !p.isEmpty()).collect(Collectors.toList());
-          playlists.stream()
-              .filter(Playlist::shouldAdvance)
-              .forEach(p -> p.advance(McDiscMod.NETWORK_WRAPPER, McDiscMod.SOUND_DURATION_SERVICE));
-
+          synchronized (lock) {
+            playlists = playlists.stream().filter(p -> !p.isEmpty()).collect(Collectors.toList());
+            playlists.stream()
+                .filter(Playlist::shouldAdvance)
+                .forEach(p -> p.advance(McDiscMod.NETWORK_WRAPPER, McDiscMod.SOUND_DURATION_SERVICE));
+          }
           try {
             Thread.sleep(5000L);
           } catch (InterruptedException e) {
