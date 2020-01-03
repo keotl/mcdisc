@@ -13,7 +13,7 @@ public class SoundDurationService {
 
   public int getDuration(String soundId) {
     return customDiscs.stream()
-        .filter(disc -> disc.soundId.equals(soundId))
+        .filter(disc -> ("mcdisc:" + disc.soundId).equals(soundId))
         .map(disc -> disc.duration)
         .findFirst()
         .orElse(5);
