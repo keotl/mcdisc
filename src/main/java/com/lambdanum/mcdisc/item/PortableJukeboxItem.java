@@ -22,7 +22,7 @@ public class PortableJukeboxItem extends Item {
   public static final String NAME = "portable_jukebox";
 
   public PortableJukeboxItem() {
-    setUnlocalizedName(NAME);
+    setTranslationKey(NAME);
     setRegistryName(NAME);
     setCreativeTab(CreativeTabs.MISC);
   }

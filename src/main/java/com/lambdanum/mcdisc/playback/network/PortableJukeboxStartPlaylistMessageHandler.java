@@ -13,8 +13,7 @@ public class PortableJukeboxStartPlaylistMessageHandler implements IMessageHandl
 
   @Override
   public IMessage onMessage(PortableJukeboxStartPlaylistMessage message, MessageContext ctx) {
-    EntityPlayerMP player = ctx.getServerHandler().player;
-    PlaylistManager.INSTANCE.add(new Playlist(message.dimension, player, message.sounds));
+    PlaylistManager.INSTANCE.add(new Playlist(message.player, message.sounds));
 
     return null;
   }

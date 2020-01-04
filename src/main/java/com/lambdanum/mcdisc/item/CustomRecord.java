@@ -17,7 +17,7 @@ public class CustomRecord extends ItemRecord {
         super(disc.minecraftId, new SoundEvent(new ResourceLocation("mcdisc", disc.soundId)));
         this.disc = disc;
         this.setRegistryName(disc.minecraftId);
-        this.setUnlocalizedName("record");
+        this.setTranslationKey("record");
     }
 
     public void registerModel() {

@@ -31,7 +31,6 @@ public class PortableJukeboxGuiContainer extends GuiContainer {
       public void mouseReleased(int mouseX, int mouseY) {
         if (container.getPlaylist().size() > 0) {
           McDiscMod.NETWORK_WRAPPER.sendToServer(new PortableJukeboxStartPlaylistMessage(
-              player.dimension,
               player.getName(),
               container.getPlaylist()));
         }

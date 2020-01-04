@@ -9,15 +9,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class Playlist {
 
-  private int dimension;
-  private EntityPlayer followingPlayer;
+  private String followingPlayer;
   private List<String> sounds;
 
 
   private LocalDateTime nextTime;
 
-  public Playlist(int dimension, EntityPlayer followingPlayer, List<String> sounds) {
-    this.dimension = dimension;
+  public Playlist(String followingPlayer, List<String> sounds) {
     this.followingPlayer = followingPlayer;
     this.sounds = sounds;
     nextTime = LocalDateTime.MIN;
@@ -32,7 +30,7 @@ public class Playlist {
   }
 
   public boolean matchesPlayer(String player) {
-    return followingPlayer.getName().equals(player);
+    return followingPlayer.equals(player);
   }
 
   public void advance(SimpleNetworkWrapper networkWrapper, SoundDurationService soundDurationService) {
@@ -43,6 +41,6 @@ public class Playlist {
     String nextSound = sounds.remove(0);
 
     nextTime = LocalDateTime.now().plusSeconds(soundDurationService.getDuration(nextSound));
-    networkWrapper.sendToDimension(new PortableJukeboxPlayPacket(followingPlayer.getName(), nextSound), dimension);
+    networkWrapper.sendToAll(new PortableJukeboxPlayPacket(followingPlayer, nextSound));
   }
 }

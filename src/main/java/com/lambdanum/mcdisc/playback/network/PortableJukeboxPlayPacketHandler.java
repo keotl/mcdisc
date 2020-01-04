@@ -25,6 +25,9 @@ public class PortableJukeboxPlayPacketHandler implements IMessageHandler<Portabl
   public IMessage onMessage(PortableJukeboxPlayPacket message, MessageContext ctx) {
     WorldClient world = Minecraft.getMinecraft().world;
     EntityPlayer sourcePlayer = world.getPlayerEntityByName(message.sourcePlayer);
+    if (sourcePlayer == null) {
+      return null;
+    }
 
     ResourceLocation soundLocation = new ResourceLocation(message.soundId);
 

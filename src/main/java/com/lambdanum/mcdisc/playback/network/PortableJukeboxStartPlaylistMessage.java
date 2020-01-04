@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class PortableJukeboxStartPlaylistMessage implements IMessage {
 
-  public int dimension;
   public String player;
   public List<String> sounds;
 
@@ -17,15 +16,13 @@ public class PortableJukeboxStartPlaylistMessage implements IMessage {
   public PortableJukeboxStartPlaylistMessage() {
   }
 
-  public PortableJukeboxStartPlaylistMessage(int dimension, String player, List<String> sounds) {
-    this.dimension = dimension;
+  public PortableJukeboxStartPlaylistMessage(String player, List<String> sounds) {
     this.player = player;
     this.sounds = sounds;
   }
 
   @Override
   public void fromBytes(ByteBuf buf) {
-    dimension = buf.readInt();
     int playerLength = buf.readInt();
     int soundsLength = buf.readInt();
     player = buf.readCharSequence(playerLength, Charset.forName("UTF-8")).toString();
@@ -35,7 +32,6 @@ public class PortableJukeboxStartPlaylistMessage implements IMessage {
 
   @Override
   public void toBytes(ByteBuf buf) {
-    buf.writeInt(dimension);
     buf.writeInt(player.length());
     String serializedSounds = String.join(",", sounds);
     buf.writeInt(serializedSounds.length());

@@ -37,7 +37,7 @@ public class CustomDiscCreeper extends EntityCreeper {
         if (this.world.getGameRules().getBoolean("doMobLoot")) {
             if (cause.getTrueSource() instanceof EntitySkeleton) {
                 this.dropItem(getRandomMusicDiscItem(), 1);
-            } else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper) cause.getTrueSource()).getPowered() && ((EntityCreeper) cause.getTrueSource()).isAIEnabled()) {
+            } else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper) cause.getTrueSource()).getPowered() && !((EntityCreeper) cause.getTrueSource()).isAIDisabled()) {
                 ((EntityCreeper) cause.getTrueSource()).incrementDroppedSkulls();
                 this.entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
             }
