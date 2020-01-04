@@ -24,8 +24,10 @@ public class PlaylistManager {
   }
 
   public void add(Playlist playlist) {
-    playlists.add(playlist);
-    playlist.advance(McDiscMod.NETWORK_WRAPPER, McDiscMod.SOUND_DURATION_SERVICE);
+    synchronized (lock) {
+      playlists.add(playlist);
+      playlist.advance(McDiscMod.NETWORK_WRAPPER, McDiscMod.SOUND_DURATION_SERVICE);
+    }
   }
 
   public void remove(String player) {
