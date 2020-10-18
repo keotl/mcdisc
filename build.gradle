@@ -37,6 +37,7 @@ minecraft {
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: 'snapshot', version: '20200514-1.16'
+
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -54,7 +55,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                mcdisc {
                     source sourceSets.main
                 }
             }
@@ -70,7 +71,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                mcdisc {
                     source sourceSets.main
                 }
             }
@@ -85,10 +86,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'mcdisc', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                examplemod {
+                mcdisc {
                     source sourceSets.main
                 }
             }
